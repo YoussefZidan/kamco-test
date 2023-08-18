@@ -1,9 +1,20 @@
 import { countries } from "constants-js";
-import { preventNonNumericalInput } from "javascript-functions";
+import {
+  humanFriendlyDate,
+  preventNonNumericalInput,
+} from "javascript-functions";
+import {
+  MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowRight,
+} from "react-icons/md";
+
+import { BsCloudUpload, BsFileEarmarkArrowUp } from "react-icons/bs";
+import { CiSearch, CiViewTable } from "react-icons/ci";
+import { users } from "./db";
 
 export default function App() {
   return (
-    <div className="p-5">
+    <div className="p-5 grid gap-5 grid-cols-1">
       <div className="app-card">
         <h2 className="text-lg font-bold">Create a customer</h2>
         <hr className="my-2" />
@@ -96,7 +107,7 @@ export default function App() {
               <span className="opacity-50">Active</span>
               <div className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" value="" className="sr-only peer" />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 -blue-800 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600"></div>
               </div>
               <span className="font-semibold">Inactive</span>
             </div>
@@ -105,6 +116,104 @@ export default function App() {
 
         <div className="text-right mt-5">
           <button className="app-btn-primary">Create account</button>
+        </div>
+      </div>
+
+      <div className="app-card">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold">Customers list</h2>
+          <div className="text-primary flex items-center justify-center gap-2">
+            <button>
+              <CiSearch size={26} />
+            </button>
+            <button>
+              <CiViewTable size={26} />
+            </button>
+            <button>
+              <BsCloudUpload size={26} />
+            </button>
+            <button>
+              <BsFileEarmarkArrowUp size={26} />
+            </button>
+          </div>
+        </div>
+        <hr className="my-2" />
+
+        <div className="relative overflow-x-auto">
+          <table className="w-full text-sm text-left">
+            <thead className="text-base text-primary bg-primary-lighter">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  #
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Full name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Email
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Mobile number
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Account #
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Status
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Last login
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((ele, i) => (
+                <tr key={i} className="bg-white border-b">
+                  <td className="px-6 py-4">{i}</td>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                  >
+                    {ele.first_name + " " + ele.last_name}
+                  </th>
+                  <td className="px-6 py-4">{ele.email}</td>
+                  <td className="px-6 py-4">{ele.mobile_number}</td>
+                  <td className="px-6 py-4">{ele.account}</td>
+                  <td className="px-6 py-4">
+                    {ele.status.length % 2 === 1 ? "Verified" : "Not Verified"}
+                  </td>
+                  <td className="px-6 py-4">
+                    {humanFriendlyDate(new Date(ele.last_login))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <nav className="text-right mt-5">
+            <ul className="inline-flex items-center gap-2 -space-x-px text-sm">
+              <li>
+                <button className="flex items-center justify-center text-gray-400 hover:text-primary-dark">
+                  <MdOutlineKeyboardArrowLeft size={28} />
+                </button>
+              </li>
+              <li>
+                <button className="flex items-center justify-center px-3 h-8 rounded-lg leading-tight text-white bg-primary border hover:bg-primary-dark">
+                  1
+                </button>
+              </li>
+              <li>
+                <button className="flex items-center justify-center px-3 h-8 rounded-lg leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                  2
+                </button>
+              </li>
+              <li>
+                <button className="flex items-center justify-center text-gray-400 hover:text-primary-dark">
+                  <MdOutlineKeyboardArrowRight size={28} />
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
