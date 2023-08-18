@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { BsFlag, BsGear } from "react-icons/bs";
 import { CiSquarePlus } from "react-icons/ci";
 import { FiUsers } from "react-icons/fi";
@@ -9,21 +11,25 @@ import AppTabs from "../AppTabs";
 import SearchInput from "./SearchInput";
 
 const DashboardSidebar = () => {
+  const pathname = usePathname();
+
   const iconSize = 20;
 
   const standardNavItems = [
     {
       title: <p className="text-sm">Dashboard</p>,
       icon: <HiOutlineChartSquareBar size={iconSize} />,
+      route: "/dashboard",
     },
     {
       title: (
         <div className="flex justify-between items-center">
-          <p className="text-sm text-neutral-900 font-bold">Customers</p>
-          <CiSquarePlus size={28} className="text-neutral-900 font-bold" />
+          <p className="text-sm">Customers</p>
+          <CiSquarePlus size={28} />
         </div>
       ),
       icon: <FiUsers size={iconSize} />,
+      route: "/customers",
     },
     {
       title: (
@@ -33,6 +39,7 @@ const DashboardSidebar = () => {
         </div>
       ),
       icon: <PiUserSquare size={24} />,
+      route: "/backend-users",
     },
     {
       title: (
@@ -42,10 +49,12 @@ const DashboardSidebar = () => {
         </div>
       ),
       icon: <BsFlag size={iconSize} />,
+      route: "/master-data",
     },
     {
       title: <p className="text-sm">Configuration</p>,
       icon: <BsGear size={iconSize} />,
+      route: "/configuration",
     },
   ];
 
@@ -53,6 +62,7 @@ const DashboardSidebar = () => {
     {
       title: <p className="text-sm">Configuration</p>,
       icon: <BsGear size={iconSize} />,
+      route: "/configuration",
     },
   ];
 
@@ -61,8 +71,13 @@ const DashboardSidebar = () => {
       id: 1,
       label: "Standard",
       tab: standardNavItems.map((ele, i) => (
-        <MenuItem key={i} icon={ele.icon}>
-          {ele.title}
+        <MenuItem key={i} icon={ele.icon} component={"div"}>
+          <Link
+            className={pathname == ele.route ? "active" : ""}
+            href={ele.route}
+          >
+            {ele.title}
+          </Link>
         </MenuItem>
       )),
     },
@@ -70,8 +85,13 @@ const DashboardSidebar = () => {
       id: 2,
       label: "Favorite",
       tab: favoriteNavItems.map((ele, i) => (
-        <MenuItem key={i} icon={ele.icon}>
-          {ele.title}
+        <MenuItem key={i} icon={ele.icon} component={"div"}>
+          <Link
+            className={pathname == ele.route ? "active" : ""}
+            href={ele.route}
+          >
+            {ele.title}
+          </Link>
         </MenuItem>
       )),
     },
@@ -86,18 +106,7 @@ const DashboardSidebar = () => {
       <Menu className="border-b py-2">
         <SearchInput />
       </Menu>
-      <Menu
-        menuItemStyles={{
-          button: {
-            // the active class will be added automatically by react router
-            // so we can use it to style the active menu item
-            [`&.active`]: {
-              color: "black",
-              fontWeight: "600",
-            },
-          },
-        }}
-      >
+      <Menu>
         <AppTabs onTabChange={() => {}} tabs={tabs} />
       </Menu>
     </Sidebar>

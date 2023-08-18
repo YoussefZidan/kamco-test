@@ -21,7 +21,7 @@ const SearchInput = () => {
         </div>
         <input
           type="search"
-          className="rounded-full pl-8 text-sm w-full border border-neutral-400 focus:ring-0 focus:border-neutral-500"
+          className="app-input rounded-full pl-8 text-sm"
           placeholder="Menu Search"
         />
       </div>

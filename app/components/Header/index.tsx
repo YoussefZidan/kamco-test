@@ -39,7 +39,7 @@ const Header = () => {
           </div>
           <input
             type="search"
-            className="rounded-full pl-8 text-sm w-full border border-none bg-white/20 focus:ring-0 focus:border-neutral-100 focus:bg-white/25 text-white placeholder:text-white"
+            className="rounded-full pl-8 text-sm w-full bg-white/20 ring-transparent focus:ring-neutral-400 focus:bg-white/25 text-white placeholder:text-white"
             placeholder="Search"
           />
         </div>

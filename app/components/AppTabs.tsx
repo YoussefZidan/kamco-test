@@ -38,7 +38,7 @@ function AppTabs({ tabs, onTabChange }: AppTabsProps) {
           {Object.values(componentTabs).map((ele) => (
             <li
               key={ele.id}
-              className={`inline-block flex-grow cursor-pointer rounded-t-lg border-b-[3px] p-4 text-base ${
+              className={`inline-block flex-grow cursor-pointer rounded-t-lg border-b-[3px] p-4 text-sm ${
                 ele.id === activeTabIdx ? activeClass : inActiveClass
               }`}
               onClick={() => {
