@@ -3,7 +3,8 @@ interface AppFormRadioProps {
   name: string;
   options: Array<{ label: string; value: string }>;
 }
-const AppFormRadio = ({ label, name, options }: AppFormRadioProps) => {
+
+const AppFormRadio = ({ label, name, options, ...rest }: AppFormRadioProps) => {
   return (
     <div>
       <span className="text-neutral-600 font-semibold mb-3 text-base block">
@@ -12,7 +13,7 @@ const AppFormRadio = ({ label, name, options }: AppFormRadioProps) => {
       <div className="flex gap-10">
         {options.map((ele, i) => (
           <label key={i}>
-            <input type="radio" name={name} value={ele.value} />
+            <input type="radio" name={name} value={ele.value} {...rest} />
             <span className="text-base ms-2">{ele.label}</span>
           </label>
         ))}

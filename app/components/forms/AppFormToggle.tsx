@@ -1,18 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface AppFormToggleProps {
   label: string;
   enabledText: string;
   disabledText: string;
+  onChange: Function;
 }
 const AppFormToggle = ({
   label,
   enabledText,
   disabledText,
+  onChange,
 }: AppFormToggleProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
-  console.log(isEnabled);
+
+  useEffect(() => {
+    onChange(isEnabled);
+  }, [isEnabled]);
+
   return (
     <label>
       <span className="text-neutral-600 font-semibold mb-3 text-base block">
