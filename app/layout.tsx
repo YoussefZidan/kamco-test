@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="light" className="bg-neutral-50">
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning={true}>
         <div className="mx-auto w-full 4xl:w-[1820px]">
           <header>
             <Header />

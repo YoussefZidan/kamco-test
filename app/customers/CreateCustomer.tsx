@@ -1,7 +1,6 @@
 "use client";
 import { countries } from "constants-js";
 import { useFormik } from "formik";
-import { useCallback } from "react";
 import * as yup from "yup";
 import AppFormPhone from "../components/forms/AppFormPhone";
 import AppFormRadio from "../components/forms/AppFormRadio";
@@ -14,6 +13,7 @@ const CreateCustomer = () => {
     fName: "",
     lName: "",
     mobileNumber: "",
+    fullMobileNumber: "",
     title: "",
     gender: "",
     status: false,
@@ -25,7 +25,7 @@ const CreateCustomer = () => {
     mobileNumber: yup.string().required("This field is required"),
     title: yup.string().required("This field is required"),
     gender: yup.string().required("This field is required"),
-    status: yup.string().required("This field is required"),
+    status: yup.string(),
   });
 
   const onSubmit = (values: any) => {
@@ -63,10 +63,13 @@ const CreateCustomer = () => {
           <AppFormPhone
             label="Mobile Number"
             placeholder="| Enter customer mobile number"
-            {...formik.getFieldProps("mobileNumber")}
-            onChange={useCallback((value: string) => {
+            onBlur={formik.handleBlur}
+            value={formik.values.mobileNumber}
+            onChange={(value: string) => {
               formik.setFieldValue("mobileNumber", value);
-            }, [])}
+            }}
+            mobileCodeValue={"+965"}
+            name="mobileNumber"
             invalid={
               !!(formik.touched.mobileNumber && formik.errors.mobileNumber)
             }
@@ -77,18 +80,26 @@ const CreateCustomer = () => {
             label="Title"
             options={countries}
             placeholder="Select account type"
-            {...formik.getFieldProps("title")}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.title}
+            name="title"
             invalid={!!(formik.touched.title && formik.errors.title)}
             errorMessage={formik.errors.title || ""}
           />
 
           <AppFormRadio
             name="gender"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.gender}
             label="Gender"
             options={[
               { label: "Male", value: "male" },
               { label: "Female", value: "female" },
             ]}
+            invalid={!!(formik.touched.gender && formik.errors.gender)}
+            errorMessage={formik.errors.gender || ""}
           />
 
           <AppFormToggle
@@ -108,6 +119,8 @@ const CreateCustomer = () => {
           </button>
         </div>
       </form>
+
+      <pre>{JSON.stringify(formik, null, 4)}</pre>
     </div>
   );
 };

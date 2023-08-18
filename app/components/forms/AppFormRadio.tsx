@@ -1,23 +1,52 @@
+import ErrorMessage from "./ErrorMessage";
+
+interface Option {
+  label: string;
+  value: string;
+}
+
 interface AppFormRadioProps {
   label: string;
   name: string;
-  options: Array<{ label: string; value: string }>;
+  options: Option[];
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
+  value: string;
+  invalid: boolean;
+  errorMessage: string;
 }
 
-const AppFormRadio = ({ label, name, options, ...rest }: AppFormRadioProps) => {
+const AppFormRadio: React.FC<AppFormRadioProps> = ({
+  label,
+  name,
+  options,
+  onChange,
+  onBlur,
+  value,
+  invalid,
+  errorMessage,
+}) => {
   return (
     <div>
       <span className="text-neutral-600 font-semibold mb-3 text-base block">
         {label}
       </span>
       <div className="flex gap-10">
-        {options.map((ele, i) => (
-          <label key={i}>
-            <input type="radio" name={name} value={ele.value} {...rest} />
-            <span className="text-base ms-2">{ele.label}</span>
+        {options.map(({ label: optionLabel, value: optionValue }, index) => (
+          <label key={index}>
+            <input
+              onBlur={onBlur}
+              type="radio"
+              name={name}
+              value={optionValue}
+              onChange={onChange}
+              defaultChecked={optionValue === value}
+            />
+            <span className="text-base ms-2">{optionLabel}</span>
           </label>
         ))}
       </div>
+      {invalid && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </div>
   );
 };
