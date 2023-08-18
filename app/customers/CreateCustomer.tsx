@@ -1,5 +1,9 @@
 import { countries } from "constants-js";
-import { preventNonNumericalInput } from "javascript-functions";
+import AppFormPhone from "../components/forms/AppFormPhone";
+import AppFormRadio from "../components/forms/AppFormRadio";
+import AppFormSelect from "../components/forms/AppFormSelect";
+import AppFormText from "../components/forms/AppFormText";
+import AppFormToggle from "../components/forms/AppFormToggle";
 
 const CreateCustomer = () => {
   return (
@@ -7,103 +11,41 @@ const CreateCustomer = () => {
       <h2 className="text-lg font-bold">Create a customer</h2>
       <hr className="my-2" />
       <div className="grid grid-cols-3 my-4 gap-5">
-        <label className="block">
-          <span className="text-neutral-600 font-semibold mb-2 text-base block">
-            First Name
-          </span>
-          <input
-            className="app-input"
-            type="text"
-            placeholder="Enter customer first name"
-          />
-        </label>
+        <AppFormText
+          label="First Name"
+          placeholder="Enter customer first name"
+        />
+        <AppFormText label="Last Name" placeholder="Enter customer last name" />
+        <AppFormPhone
+          label="Mobile Number"
+          placeholder="| Enter customer mobile number"
+        />
 
-        <label className="block">
-          <span className="text-neutral-600 font-semibold mb-2 text-base block">
-            Last Name
-          </span>
-          <input
-            className="app-input"
-            type="text"
-            placeholder="Enter customer last name"
-          />
-        </label>
+        <AppFormSelect
+          label="Title"
+          options={countries}
+          placeholder="Select account type"
+        />
 
-        <label className="block">
-          <span className="text-neutral-600 font-semibold mb-2 text-base block">
-            Mobile Number
-          </span>
-          <div className="flex items-start">
-            <select
-              className="app-input flex-[1] bg-white border-r-0 rounded-r-none focus:ring-0"
-              defaultValue={"+965"}
-            >
-              {countries.map((ele: any) => (
-                <option
-                  key={ele.code}
-                  value={ele.dial_code}
-                >{`${ele.dial_code}   ${ele.flag}`}</option>
-              ))}
-            </select>
+        <AppFormRadio
+          label="Gender"
+          name="gender"
+          options={[
+            { label: "Male", value: "male" },
+            { label: "Female", value: "female" },
+          ]}
+        />
 
-            <div className="flex-[4]">
-              <input
-                type="text"
-                className="app-input border-l-0 rounded-l-none focus:ring-0 pl-0"
-                onKeyPress={preventNonNumericalInput}
-                placeholder="| Enter customer mobile number"
-              />
-            </div>
-          </div>
-        </label>
-
-        <label className="block">
-          <span className="text-neutral-600 font-semibold mb-2 text-base block">
-            Title
-          </span>
-          <select className="app-input bg-white">
-            {countries.map((ele: any, i: number) => (
-              <option key={ele.code} value={ele.dial_code}>
-                {i}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <div>
-          <span className="text-neutral-600 font-semibold mb-3 text-base block">
-            Gender
-          </span>
-          <div className="flex gap-10">
-            <label>
-              <input type="radio" name="gender" value="male" />
-              <span className="text-base ms-2">Male</span>
-            </label>
-            <label>
-              <input type="radio" name="gender" value="female" />
-              <span className="text-base ms-2">Female</span>
-            </label>
-          </div>
-        </div>
-
-        <label>
-          <span className="text-neutral-600 font-semibold mb-3 text-base block">
-            Status
-          </span>
-          <div className="flex items-center gap-3">
-            <span className="opacity-50">Active</span>
-            <div className="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" value="" className="sr-only peer" />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 -blue-800 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-            </div>
-            <span className="font-semibold">Inactive</span>
-          </div>
-        </label>
+        <AppFormToggle
+          label="Status"
+          disabledText="Inactive"
+          enabledText="Active"
+        />
       </div>
+
       <div className="text-right mt-5">
         <button className="app-btn-primary">Create account</button>
       </div>
-      AppCard
     </div>
   );
 };
