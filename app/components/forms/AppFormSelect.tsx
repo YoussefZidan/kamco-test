@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ErrorMessage from "./ErrorMessage";
 
 interface Option {
@@ -9,33 +9,26 @@ interface Option {
 interface AppFormSelectProps {
   label: string;
   placeholder: string;
+  name: string;
   options: Option[];
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLSelectElement>;
+  onBlur: React.FocusEventHandler<HTMLSelectElement>;
   invalid: boolean;
   errorMessage: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onBlur: (event: React.FocusEvent<HTMLSelectElement>) => void;
-  name: string;
 }
 
 const AppFormSelect: React.FC<AppFormSelectProps> = ({
   label,
   placeholder,
+  name,
   options,
-  invalid,
-  errorMessage,
+  value,
   onChange,
   onBlur,
-  value,
-  name,
+  invalid,
+  errorMessage,
 }) => {
-  const [selectedValue, setSelectedValue] = useState(value);
-
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedValue(event.target.value);
-    onChange(event);
-  };
-
   return (
     <label className="block">
       <span className="text-neutral-600 font-semibold mb-2 text-base block">
@@ -45,8 +38,8 @@ const AppFormSelect: React.FC<AppFormSelectProps> = ({
         name={name}
         placeholder={placeholder}
         className="app-input bg-white"
-        value={selectedValue}
-        onChange={handleSelectChange}
+        value={value}
+        onChange={onChange}
         onBlur={onBlur}
       >
         <option value="" disabled>

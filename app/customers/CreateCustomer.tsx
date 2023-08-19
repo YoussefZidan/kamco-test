@@ -12,8 +12,8 @@ const CreateCustomer = () => {
   const initialValues = {
     fName: "",
     lName: "",
+    mobileCode: "+965",
     mobileNumber: "",
-    fullMobileNumber: "",
     title: "",
     gender: "",
     status: false,
@@ -23,6 +23,7 @@ const CreateCustomer = () => {
     fName: yup.string().required("This field is required"),
     lName: yup.string().required("This field is required"),
     mobileNumber: yup.string().required("This field is required"),
+    mobileCode: yup.string().required("This field is required"),
     title: yup.string().required("This field is required"),
     gender: yup.string().required("This field is required"),
     status: yup.string(),
@@ -47,7 +48,10 @@ const CreateCustomer = () => {
           <AppFormText
             label="First Name"
             placeholder="Enter customer first name"
-            {...formik.getFieldProps("fName")}
+            name="fName"
+            value={formik.values.fName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             invalid={!!(formik.touched.fName && formik.errors.fName)}
             errorMessage={formik.errors.fName || ""}
           />
@@ -55,7 +59,10 @@ const CreateCustomer = () => {
           <AppFormText
             label="Last Name"
             placeholder="Enter customer last name"
-            {...formik.getFieldProps("lName")}
+            name="lName"
+            value={formik.values.lName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             invalid={!!(formik.touched.lName && formik.errors.lName)}
             errorMessage={formik.errors.lName || ""}
           />
@@ -63,13 +70,22 @@ const CreateCustomer = () => {
           <AppFormPhone
             label="Mobile Number"
             placeholder="| Enter customer mobile number"
-            onBlur={formik.handleBlur}
-            value={formik.values.mobileNumber}
-            onChange={(value: string) => {
-              formik.setFieldValue("mobileNumber", value);
+            inputName="mobileNumber"
+            selectName="mobileCode"
+            inputValue={formik.values.mobileNumber}
+            selectValue={formik.values.mobileCode}
+            onInputChange={(e) => {
+              formik.setFieldValue("mobileNumber", e.target.value);
             }}
-            mobileCodeValue={"+965"}
-            name="mobileNumber"
+            onInputBlur={() => {
+              formik.setFieldTouched("mobileNumber");
+            }}
+            onSelectChange={(e) => {
+              formik.setFieldValue("mobileCode", e.target.value);
+            }}
+            onSelectBlur={() => {
+              formik.setFieldTouched("mobileCode");
+            }}
             invalid={
               !!(formik.touched.mobileNumber && formik.errors.mobileNumber)
             }
@@ -78,12 +94,12 @@ const CreateCustomer = () => {
 
           <AppFormSelect
             label="Title"
-            options={countries}
             placeholder="Select account type"
+            name="title"
+            options={countries}
+            value={formik.values.title}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.title}
-            name="title"
             invalid={!!(formik.touched.title && formik.errors.title)}
             errorMessage={formik.errors.title || ""}
           />

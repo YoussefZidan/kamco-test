@@ -1,6 +1,5 @@
 import { countries } from "constants-js";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ErrorMessage from "./ErrorMessage";
 
 interface Country {
@@ -12,14 +11,14 @@ interface Country {
 interface AppFormPhoneProps {
   label: string;
   placeholder: string;
-  value: string;
-  mobileCodeValue: string;
-  name: string;
-  defaultCodeValue?: string;
-  onChange: (value: string) => void;
-  onBlur: (
-    event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void;
+  inputName: string;
+  selectName: string;
+  inputValue: string;
+  selectValue: string;
+  onInputChange: React.ChangeEventHandler<HTMLInputElement>;
+  onSelectChange: React.ChangeEventHandler<HTMLSelectElement>;
+  onInputBlur: React.FocusEventHandler<HTMLInputElement>;
+  onSelectBlur: React.FocusEventHandler<HTMLSelectElement>;
   invalid: boolean;
   errorMessage: string;
 }
@@ -27,17 +26,17 @@ interface AppFormPhoneProps {
 const AppFormPhone: React.FC<AppFormPhoneProps> = ({
   label,
   placeholder,
-  value,
-  mobileCodeValue,
-  onChange,
-  onBlur,
+  inputName,
+  selectName,
+  inputValue,
+  selectValue,
+  onInputChange,
+  onSelectChange,
+  onInputBlur,
+  onSelectBlur,
   invalid,
   errorMessage,
-  name,
 }) => {
-  const [mobileCode, setMobileCode] = useState(mobileCodeValue);
-  const [mobileNumber, setMobileNumber] = useState("");
-
   /**
    * Prevents non-numerical input in a form input field
    * @param {Event} e - The input event
@@ -54,10 +53,6 @@ const AppFormPhone: React.FC<AppFormPhoneProps> = ({
     }
   };
 
-  useEffect(() => {
-    onChange(mobileCode + mobileNumber);
-  }, [mobileCode, mobileNumber]);
-
   return (
     <label className="block">
       <span className="text-neutral-600 font-semibold mb-2 text-base block">
@@ -65,12 +60,11 @@ const AppFormPhone: React.FC<AppFormPhoneProps> = ({
       </span>
       <div className="flex items-start">
         <select
-          onChange={(e) => {
-            setMobileCode(e.target.value);
-          }}
-          onBlur={onBlur}
-          className="app-input flex-[1] bg-white border-r-0 rounded-r-none focus:ring-0"
-          value={mobileCode}
+          onChange={onSelectChange}
+          onBlur={onSelectBlur}
+          className="app-input flex-[1] bg-white border-r-0 rounded-r-none focus:ring-0 focus:border-neutral-400"
+          value={selectValue}
+          name={selectName}
         >
           {countries.map((country: Country) => (
             <option key={country.code} value={country.dial_code}>
@@ -81,16 +75,14 @@ const AppFormPhone: React.FC<AppFormPhoneProps> = ({
 
         <div className="flex-[4]">
           <input
-            name={name}
+            name={inputName}
             type="text"
-            className="app-input border-l-0 rounded-l-none focus:ring-0 pl-0"
+            className="app-input border-l-0 rounded-l-none focus:ring-0 focus:border-neutral-400 pl-0"
             onInput={preventNonNumericalInput}
             placeholder={placeholder}
-            value={value.replace(mobileCode, "")}
-            onBlur={onBlur}
-            onChange={(e) => {
-              setMobileNumber(e.target.value);
-            }}
+            value={inputValue}
+            onBlur={onInputBlur}
+            onChange={onInputChange}
           />
         </div>
       </div>

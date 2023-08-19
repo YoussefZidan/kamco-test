@@ -3,15 +3,23 @@ import ErrorMessage from "./ErrorMessage";
 interface AppFormTextProps {
   label: string;
   placeholder: string;
+  name: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur: React.FocusEventHandler<HTMLInputElement>;
   invalid: boolean;
   errorMessage: string;
 }
+
 const AppFormText = ({
   label,
   placeholder,
+  name,
+  value,
+  onChange,
+  onBlur,
   invalid,
   errorMessage,
-  ...rest
 }: AppFormTextProps) => {
   return (
     <label className="block">
@@ -22,7 +30,10 @@ const AppFormText = ({
         className="app-input"
         type="text"
         placeholder={placeholder}
-        {...rest}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
       />
       {invalid && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </label>
