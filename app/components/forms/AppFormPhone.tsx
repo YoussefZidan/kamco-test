@@ -72,7 +72,7 @@ const AppFormPhone: React.FC<AppFormPhoneProps> = ({
           ))}
         </select>
 
-        <div className="flex-[4]">
+        <div className="flex-[3] md:flex-[4]">
           <input
             name={inputName}
             type="text"

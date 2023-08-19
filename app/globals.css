@@ -22,3 +22,7 @@
     @apply font-bold;
   }
 }
+
+.ps-menu-button {
+  padding-left: 10px !important;
+}
