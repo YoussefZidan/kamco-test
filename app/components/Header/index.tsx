@@ -10,12 +10,12 @@ const Header = () => {
     <div className="bg-primary text-white flex items-center justify-between p-4">
       <div className="flex items-center gap-3">
         <button className="text-left">
-          <h1 className="text-3xl font-bold tracking-[.2rem]">KAMCO</h1>
-          <p className="text-base font-bold tracking-[.4rem]">INVEST</p>
+          <h1 className="sm:text-3xl text-base font-bold tracking-[.2rem]">KAMCO</h1>
+          <p className="text-sm sm:text-base font-bold tracking-[.4rem]">INVEST</p>
         </button>
         <div className="flex items-center gap-4">
           <span className="block h-10 w-[1px] bg-neutral-50"></span>
-          <p className="font-semibold">Customers</p>
+          <p className="font-semibold hidden md:block">Customers</p>
         </div>
       </div>
       <div className="flex gap-4 items-center">
@@ -44,14 +44,14 @@ const Header = () => {
           />
         </div>
 
-        <button>
+        <button className="hidden md:block">
           <BsGear size={25} />
         </button>
-        <button>
+        <button className="hidden md:block">
           <LuBell size={25} />
         </button>
 
-        <span className="block h-10 w-[1px] bg-neutral-50"></span>
+        <span className="h-10 w-[1px] bg-neutral-50 hidden sm:block"></span>
 
         <Dropdown
           label="Jacob Gillespie"
@@ -66,9 +66,8 @@ const Header = () => {
                   width={"36"}
                 />
 
-                <p>Jacob Gillespie</p>
-
-                <BiSolidDownArrow />
+                <p className="hidden sm:block">Jacob Gillespie</p>
+                <BiSolidDownArrow className="hidden sm:block" />
               </button>
             );
           }}

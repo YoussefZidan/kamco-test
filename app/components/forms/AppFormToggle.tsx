@@ -34,7 +34,7 @@ const AppFormToggle: React.FC<AppFormToggleProps> = ({
       <span className="text-neutral-600 font-semibold mb-3 text-base block">
         {label}
       </span>
-      <div className="flex items-center gap-3">
+      <div className="flex flex-col sm:flex-row items-center gap-3">
         <span className={!isEnabled ? "opacity-50" : "font-semibold"}>
           {enabledText}
         </span>

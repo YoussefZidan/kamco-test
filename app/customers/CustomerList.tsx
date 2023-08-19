@@ -10,7 +10,7 @@ import { users } from "../db";
 
 const CustomerList = () => {
   return (
-    <div className="app-card">
+    <div className="app-card overflow-x-auto">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold">Customers list</h2>
         <div className="text-primary flex items-center justify-center gap-2">

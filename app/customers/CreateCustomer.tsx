@@ -48,7 +48,7 @@ const CreateCustomer = () => {
       <h2 className="text-lg font-bold">Create a customer</h2>
       <hr className="my-2" />
       <form onSubmit={formik.handleSubmit}>
-        <div className="grid grid-cols-3 my-4 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 my-4 gap-5">
           <AppFormText
             label="First Name"
             placeholder="Enter customer first name"
@@ -90,9 +90,7 @@ const CreateCustomer = () => {
             onSelectBlur={() => {
               formik.setFieldTouched("mobileCode");
             }}
-            invalid={
-              !!(formik.touched.mobileNumber && formik.errors.mobileNumber)
-            }
+            invalid={!!(formik.touched.mobileNumber && formik.errors.mobileNumber)}
             errorMessage={formik.errors.mobileNumber || ""}
           />
 
@@ -140,17 +138,11 @@ const CreateCustomer = () => {
         </div>
 
         <div className="text-right mt-5">
-          <button
-            type="submit"
-            className="app-btn-primary"
-            disabled={!formik.isValid}
-          >
+          <button type="submit" className="app-btn-primary" disabled={!formik.isValid}>
             Create account
           </button>
         </div>
       </form>
-
-      <pre>{JSON.stringify(formik, null, 4)}</pre>
     </div>
   );
 };

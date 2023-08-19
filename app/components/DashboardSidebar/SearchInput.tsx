@@ -1,3 +1,5 @@
+import React from "react";
+
 const SearchInput = () => {
   return (
     <div className="px-3">
@@ -29,4 +31,4 @@ const SearchInput = () => {
   );
 };
 
-export default SearchInput;
+export default React.memo(SearchInput);

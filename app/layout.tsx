@@ -1,9 +1,12 @@
-import { Inter } from "next/font/google";
+import { Metadata } from "next";
 import DashboardSidebar from "./components/DashboardSidebar";
 import Header from "./components/Header";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+export const metadata: Metadata = {
+  title: "Kamco",
+  description: "Kamco Test",
+};
 
 export default function RootLayout({
   children,
@@ -12,14 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="light" className="bg-neutral-50">
-      <body className={inter.className} suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true}>
         <div className="mx-auto w-full 4xl:w-[1820px]">
-          <header>
-            <Header />
-          </header>
+          <header>{<Header />}</header>
           <main className="flex min-h-screen">
             <DashboardSidebar />
-            <div className="min-h-screen w-full">{children}</div>
+            <div className="min-h-screen w-full p-5">{children}</div>
           </main>
         </div>
       </body>
