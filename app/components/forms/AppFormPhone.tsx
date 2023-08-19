@@ -1,5 +1,5 @@
 import { countries } from "constants-js";
-import React from "react";
+import React, { useCallback } from "react";
 import ErrorMessage from "./ErrorMessage";
 
 interface Country {
@@ -42,16 +42,15 @@ const AppFormPhone: React.FC<AppFormPhoneProps> = ({
    * @param {Event} e - The input event
    * @returns {void}
    */
-  const preventNonNumericalInput: React.ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    const inputValue = e.target.value;
-    const numericInput = inputValue.replace(/[^0-9]/g, "");
+  const preventNonNumericalInput: React.ChangeEventHandler<HTMLInputElement> =
+    useCallback((e) => {
+      const inputValue = e.target.value;
+      const numericInput = inputValue.replace(/[^0-9]/g, "");
 
-    if (inputValue !== numericInput) {
-      e.target.value = numericInput;
-    }
-  };
+      if (inputValue !== numericInput) {
+        e.target.value = numericInput;
+      }
+    }, []);
 
   return (
     <label className="block">

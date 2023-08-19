@@ -8,10 +8,10 @@ interface Option {
 interface AppFormRadioProps {
   label: string;
   name: string;
+  value: string;
   options: Option[];
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
-  value: string;
   invalid: boolean;
   errorMessage: string;
 }
@@ -19,10 +19,10 @@ interface AppFormRadioProps {
 const AppFormRadio: React.FC<AppFormRadioProps> = ({
   label,
   name,
+  value,
   options,
   onChange,
   onBlur,
-  value,
   invalid,
   errorMessage,
 }) => {
@@ -35,12 +35,12 @@ const AppFormRadio: React.FC<AppFormRadioProps> = ({
         {options.map(({ label: optionLabel, value: optionValue }, index) => (
           <label key={index}>
             <input
-              onBlur={onBlur}
               type="radio"
               name={name}
               value={optionValue}
               onChange={onChange}
-              defaultChecked={optionValue === value}
+              onBlur={onBlur}
+              checked={optionValue === value}
             />
             <span className="text-base ms-2">{optionLabel}</span>
           </label>

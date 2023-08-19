@@ -2,14 +2,14 @@ import React from "react";
 import ErrorMessage from "./ErrorMessage";
 
 interface Option {
-  code: string;
   label: string;
+  value: string;
 }
 
 interface AppFormSelectProps {
   label: string;
-  placeholder: string;
   name: string;
+  placeholder: string;
   options: Option[];
   value: string;
   onChange: React.ChangeEventHandler<HTMLSelectElement>;
@@ -20,8 +20,8 @@ interface AppFormSelectProps {
 
 const AppFormSelect: React.FC<AppFormSelectProps> = ({
   label,
-  placeholder,
   name,
+  placeholder,
   options,
   value,
   onChange,
@@ -46,7 +46,7 @@ const AppFormSelect: React.FC<AppFormSelectProps> = ({
           {placeholder}
         </option>
         {options.map((option) => (
-          <option key={option.code} value={option.code}>
+          <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}

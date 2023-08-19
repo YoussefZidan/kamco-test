@@ -1,6 +1,6 @@
 "use client";
-import { countries } from "constants-js";
 import { useFormik } from "formik";
+import { useCallback, useMemo } from "react";
 import * as yup from "yup";
 import AppFormPhone from "../components/forms/AppFormPhone";
 import AppFormRadio from "../components/forms/AppFormRadio";
@@ -9,29 +9,33 @@ import AppFormText from "../components/forms/AppFormText";
 import AppFormToggle from "../components/forms/AppFormToggle";
 
 const CreateCustomer = () => {
-  const initialValues = {
-    fName: "",
-    lName: "",
-    mobileCode: "+965",
-    mobileNumber: "",
-    title: "",
-    gender: "",
-    status: false,
-  };
+  const initialValues = useMemo(() => {
+    return {
+      fName: "",
+      lName: "",
+      mobileCode: "+965",
+      mobileNumber: "",
+      title: "",
+      gender: "male",
+      status: "false",
+    };
+  }, []);
 
-  const validationSchema = yup.object({
-    fName: yup.string().required("This field is required"),
-    lName: yup.string().required("This field is required"),
-    mobileNumber: yup.string().required("This field is required"),
-    mobileCode: yup.string().required("This field is required"),
-    title: yup.string().required("This field is required"),
-    gender: yup.string().required("This field is required"),
-    status: yup.string(),
-  });
+  const validationSchema = useMemo(() => {
+    return yup.object({
+      fName: yup.string().required("This field is required"),
+      lName: yup.string().required("This field is required"),
+      mobileNumber: yup.string().required("This field is required"),
+      mobileCode: yup.string().required("This field is required"),
+      title: yup.string().required("This field is required"),
+      gender: yup.string().required("This field is required"),
+      status: yup.string(),
+    });
+  }, []);
 
-  const onSubmit = (values: any) => {
+  const onSubmit = useCallback((values: any) => {
     console.log(values);
-  };
+  }, []);
 
   const formik = useFormik({
     initialValues,
@@ -94,9 +98,13 @@ const CreateCustomer = () => {
 
           <AppFormSelect
             label="Title"
-            placeholder="Select account type"
             name="title"
-            options={countries}
+            placeholder="Select account type"
+            options={[
+              { label: "Free", value: "Free" },
+              { label: "Standard", value: "Standard" },
+              { label: "Premium", value: "Premium" },
+            ]}
             value={formik.values.title}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -105,32 +113,38 @@ const CreateCustomer = () => {
           />
 
           <AppFormRadio
-            name="gender"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.gender}
             label="Gender"
+            name="gender"
+            value={formik.values.gender}
             options={[
               { label: "Male", value: "male" },
               { label: "Female", value: "female" },
             ]}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             invalid={!!(formik.touched.gender && formik.errors.gender)}
             errorMessage={formik.errors.gender || ""}
           />
 
           <AppFormToggle
             label="Status"
-            disabledText="Inactive"
-            enabledText="Active"
-            {...formik.getFieldProps("status")}
+            name="status"
+            value={formik.values.status}
             onChange={(value: boolean) => {
-              formik.setFieldValue("status", value);
+              formik.setFieldValue("status", `${value}`);
             }}
+            onBlur={formik.handleBlur}
+            enabledText="Active"
+            disabledText="Inactive"
           />
         </div>
 
         <div className="text-right mt-5">
-          <button type="submit" className="app-btn-primary">
+          <button
+            type="submit"
+            className="app-btn-primary"
+            disabled={!formik.isValid}
+          >
             Create account
           </button>
         </div>
