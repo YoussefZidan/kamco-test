@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { BsFlag, BsGear } from "react-icons/bs";
 import { CiSquarePlus } from "react-icons/ci";
 import { FiUsers } from "react-icons/fi";
@@ -12,6 +12,8 @@ import AppTabs from "../AppTabs";
 import SearchInput from "./SearchInput";
 
 const DashboardSidebar = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
   const pathname = usePathname();
 
   const iconSize = 20;
@@ -104,8 +106,23 @@ const DashboardSidebar = () => {
     ];
   }, [pathname]);
 
+  const listenScreenResize = () => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 700) {
+        setCollapsed(false);
+      } else {
+        setCollapsed(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    listenScreenResize();
+  }, []);
+
   return (
     <Sidebar
+      collapsed={collapsed}
       className="border shadow-sm"
       backgroundColor="#EBEBEB"
       width="auto"

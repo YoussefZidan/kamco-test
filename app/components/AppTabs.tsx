@@ -34,7 +34,7 @@ function AppTabs({ tabs, onTabChange }: AppTabsProps) {
     <>
       {/* Tabs Header */}
       <div className="overflow-x-auto border-gray-200 text-center text-sm font-medium text-gray-500">
-        <ul className="relative z-20 flex flex-col sm:flex-row">
+        <ul className="relative z-20 flex flex-col md:flex-row">
           {Object.values(componentTabs).map((ele) => (
             <li
               key={ele.id}

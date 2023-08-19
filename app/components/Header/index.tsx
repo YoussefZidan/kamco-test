@@ -10,11 +10,15 @@ const Header = () => {
     <div className="bg-primary text-white flex items-center justify-between p-4">
       <div className="flex items-center gap-3">
         <button className="text-left">
-          <h1 className="sm:text-3xl text-base font-bold tracking-[.2rem]">KAMCO</h1>
-          <p className="text-sm sm:text-base font-bold tracking-[.4rem]">INVEST</p>
+          <h1 className="sm:text-3xl text-base font-bold tracking-[.2rem]">
+            KAMCO
+          </h1>
+          <p className="text-xs sm:text-base font-bold tracking-[.4rem]">
+            INVEST
+          </p>
         </button>
         <div className="flex items-center gap-4">
-          <span className="block h-10 w-[1px] bg-neutral-50"></span>
+          <span className="h-10 w-[1px] bg-neutral-50 hidden sm:block"></span>
           <p className="font-semibold hidden md:block">Customers</p>
         </div>
       </div>
